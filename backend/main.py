@@ -2,11 +2,10 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 
-class Item(BaseModel):
-    name: str
-    description: str | None = None
-    price: float
-    tax: float | None = None
+from ai import predict_crop
+
+class CropRequest(BaseModel):
+    crop: str
 
 app = FastAPI()
 
@@ -19,18 +18,14 @@ app.add_middleware(
 )
 
 @app.get('/')
-async def root():
-    return { 'message': 'Hello World' }
+def index():
+    return { 'message': 'Hello world!' }
 
+@app.post('/predict')
+async def predict(crop_request: CropRequest):
+    result = predict_crop(crop_request.crop)
 
-@app.get('/test/{id}')
-async def read_item(id):
-    return { 'id': id }
-
-@app.get('/test2/')
-async def asdf(optional: int = 0):
-    return { "you put": optional }
-
-@app.post('/test3/')
-async def fed(item: Item):
-    return item
+    return { 
+            'crop': crop_request.crop,
+            'text': result
+            }
