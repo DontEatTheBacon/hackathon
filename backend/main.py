@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 
-from ai import predict_crop
+from ai import predict_crop, get_top_crops
 
 class CropRequest(BaseModel):
     crop: str
@@ -22,10 +22,17 @@ def index():
     return { 'message': 'Hello world!' }
 
 @app.post('/predict')
-async def predict(crop_request: CropRequest):
+def predict(crop_request: CropRequest):
     result = predict_crop(crop_request.crop)
 
     return { 
             'crop': crop_request.crop,
             'text': result
             }
+
+
+@app.get('/top_crops')
+def top_crops():
+    result = get_top_crops()
+
+    return result

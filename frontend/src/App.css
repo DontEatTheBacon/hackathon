@@ -1,3 +1,62 @@
+/* RESET */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+/* BACKGROUND */
+.bg {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  display: flex;
+  justify-content: center;
+  padding: 30px;
+}
+
+/* CONTAINER */
+.container {
+  width: 100%;
+  max-width: 1000px;
+}
+
+/* HEADER */
+.header {
+  text-align: center;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  font-size: 34px;
+  margin-bottom: 5px;
+}
+
+.header p {
+  opacity: 0.8;
+}
+
+/* GLASS CARD */
+.glass-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 20px;
+  color: white;
+  margin-bottom: 20px;
+}
+
+/* SPACING */
+.mt {
+  margin-top: 20px;
+}
+
+/* FORM */
 .form {
   display: flex;
   gap: 10px;
@@ -9,7 +68,6 @@
   border-radius: 10px;
   border: none;
   outline: none;
-  font-size: 14px;
 }
 
 .form button {
@@ -19,18 +77,61 @@
   background: #2f80ed;
   color: white;
   cursor: pointer;
-  transition: 0.2s;
 }
 
 .form button:hover {
   background: #1c5fd4;
 }
 
+/* RESULT */
 .result {
-  margin-top: 20px;
-  padding: 15px;
-  border-radius: 12px;
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 10px;
   background: rgba(255,255,255,0.1);
+}
+
+/* TABLE */
+.crop-table {
+  width: 100%;
+  margin-top: 15px;
+  border-collapse: collapse;
+}
+
+.crop-table th,
+.crop-table td {
+  padding: 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  text-align: left;
+}
+
+.crop-table th {
+  opacity: 0.8;
+}
+
+/* BUTTON */
+.form-button {
+  margin-top: 10px;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 10px;
+  background: #2f80ed;
   color: white;
-  backdrop-filter: blur(10px);
+  cursor: pointer;
+}
+
+.form-button:hover {
+  background: #1c5fd4;
+}
+
+/* EMPTY STATE */
+.empty-state {
+  margin-top: 15px;
+  opacity: 0.7;
+  font-size: 14px;
+}
+
+/* GRAPH */
+.recharts-wrapper {
+  margin-top: 10px;
 }

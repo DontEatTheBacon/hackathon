@@ -1,5 +1,6 @@
 from google import genai
 from dotenv import load_dotenv
+import json
 
 load_dotenv()
 
@@ -59,3 +60,53 @@ def predict_crop(crop: str):
     )
 
     return response.text
+
+def get_top_crops():
+    PROMPT = """
+    You are an agricultural AI system specializing in California water conditions and crop suitability.
+
+    You are given historical water data including:
+    - Snowpack levels
+    - Precipitation levels
+    - Reservoir storage levels
+
+    Your task is to analyze this dataset and determine the TOP 3 most suitable crops to grow under these conditions.
+
+    ---
+
+    RULES:
+    1. Only output valid JSON.
+    2. Do NOT include explanations, markdown, or extra text.
+    3. Output must be a JSON object with this exact format:
+
+    {
+    "crops": ["crop1", "crop2", "crop3"]
+    }
+
+    4. Choose crops that are realistic for California agriculture (e.g., wheat, corn, almonds, grapes, rice, barley, lettuce, tomatoes).
+    5. Rank them from most suitable to least suitable.
+    6. Base your reasoning on:
+    - higher snowpack = more water availability
+    - higher reservoir levels = better irrigation capacity
+    - precipitation trends = seasonal water supply
+
+    ---
+
+    DATASET:
+    WATER_DATA is provided internally in the system.
+
+    ---
+
+    OUTPUT:
+    Return ONLY the JSON object.
+    """
+
+    response = client.models.generate_content(
+        model='gemini-3.1-flash-lite-preview',
+        contents=PROMPT
+    )
+
+    try:
+        return json.loads(response.text)
+    except:
+        return { 'crops': [] }
